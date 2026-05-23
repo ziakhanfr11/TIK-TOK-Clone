@@ -47,8 +47,57 @@ const Signin = () => {
         <img
           className="w-96"
           src="https://upload.wikimedia.org/wikipedia/en/thumb/a9/TikTok_logo.svg/1200px-TikTok_logo.svg.png"
-          alt=""
+          alt="TikTok Logo"
         />
 
         <div className="bg-white shadow lg:w-1/3 md:w-1/2 w-full p-10 mt-16 rounded-md">
-          <p className="text
+          <h2 className="text-2xl font-bold text-center mb-6">
+            {isLogin? "Login" : "Sign Up"}
+          </h2>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="border p-3 rounded-md outline-none focus:ring-2 focus:ring-purple-500"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="border p-3 rounded-md outline-none focus:ring-2 focus:ring-purple-500"
+            />
+
+            <button
+              type="submit"
+              disabled={loadingLogin || loadingSignup}
+              className="bg-purple-600 text-white p-3 rounded-md font-semibold hover:bg-purple-700 disabled:opacity-50"
+            >
+              {loadingLogin || loadingSignup? "Loading..." : isLogin? "Login" : "Sign Up"}
+            </button>
+          </form>
+
+          {errorLogin && <p className="text-red-500 text-sm mt-2">{errorLogin.message}</p>}
+          {errorSignup && <p className="text-red-500 text-sm mt-2">{errorSignup.message}</p>}
+
+          <p className="text-center mt-4 text-sm">
+            {isLogin? "Don't have an account?" : "Already have an account?"}{" "}
+            <button
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-purple-600 font-semibold hover:underline"
+            >
+              {isLogin? "Sign Up" : "Login"}
+            </button>
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default Signin;
